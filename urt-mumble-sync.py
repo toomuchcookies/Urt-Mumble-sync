@@ -3,13 +3,12 @@ import time
 
 from pyquake3 import PyQuake3
 from icetest import IcedMurmur
+from config import urtserver, rconpasswd, murmurproxystr, murmurport
 
-urtserver = 'localhost:27960'
+murmur = IcedMurmur(slice = "Murmur.ice",proxy = murmurproxystr)
+s = murmur.getServer(murmurport)
 
-murmur = IcedMurmur()
-s = murmur.getServer(64738)
-
-q = PyQuake3(urtserver, rcon_password='setapassword')
+q = PyQuake3(urtserver, rcon_password=rconpasswd)
 q.update()
 print 'The name of %s is %s, running map %s with %s player(s).' % (q.get_address(), q.vars['sv_hostname'], q.vars['mapname'], len(q.players))
 
